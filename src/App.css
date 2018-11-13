@@ -1,8 +1,9 @@
 #tree-container {
 	position: absolute;
 	width: 90%;
-	border: 1px solid black;
 	margin: 10px;
+	cursor: grab;
+	cursor: -webkit-grab;
 }
 
 .svgContainer {

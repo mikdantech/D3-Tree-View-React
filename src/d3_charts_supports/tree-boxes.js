@@ -209,39 +209,39 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 			$('#nodeInfoTextID' + d.id).css('visibility', 'hidden');
 		});
 
-		nodeEnterTooltip.append("rect")
-		.attr('id', function(d) { return 'nodeInfoID' + d.id; })
-    	.attr('x', rectNode.width / 2)
-		.attr('y', rectNode.height / 2)
-		.attr('width', tooltip.width)
-		.attr('height', tooltip.height)
-    	.attr('class', 'tooltip-box')
-    	.style('fill-opacity', 0.8)
-		.on('mouseover', function(d) {
-			$('#nodeInfoID' + d.id).css('visibility', 'visible');
-			$('#nodeInfoTextID' + d.id).css('visibility', 'visible');
-			removeMouseEvents();
-		})
-		.on('mouseout', function(d) {
-			$('#nodeInfoID' + d.id).css('visibility', 'hidden');
-			$('#nodeInfoTextID' + d.id).css('visibility', 'hidden');
-			reactivateMouseEvents();
-		});
-
-		nodeEnterTooltip.append("text")
-		.attr('id', function(d) { return 'nodeInfoTextID' + d.id; })
-    	.attr('x', rectNode.width / 2 + tooltip.textMargin)
-		.attr('y', rectNode.height / 2 + tooltip.textMargin * 2)
-		.attr('width', tooltip.width)
-		.attr('height', tooltip.height)
-		.attr('class', 'tooltip-text')
-		.style('fill', 'white')
-		.append("tspan")
-	    .text(function(d) {return 'Name: ' + d.name;})
-	    .append("tspan")
-	    .attr('x', rectNode.width / 2 + tooltip.textMargin)
-	    .attr('dy', '1.5em')
-	    .text(function(d) {return 'Info: ' + d.label;});
+		// nodeEnterTooltip.append("rect")
+		// .attr('id', function(d) { return 'nodeInfoID' + d.id; })
+    // 	.attr('x', rectNode.width / 2)
+		// .attr('y', rectNode.height / 2)
+		// .attr('width', tooltip.width)
+		// .attr('height', tooltip.height)
+    // 	.attr('class', 'tooltip-box')
+    // 	.style('fill-opacity', 0.8)
+		// .on('mouseover', function(d) {
+		// 	$('#nodeInfoID' + d.id).css('visibility', 'visible');
+		// 	$('#nodeInfoTextID' + d.id).css('visibility', 'visible');
+		// 	removeMouseEvents();
+		// })
+		// .on('mouseout', function(d) {
+		// 	$('#nodeInfoID' + d.id).css('visibility', 'hidden');
+		// 	$('#nodeInfoTextID' + d.id).css('visibility', 'hidden');
+		// 	reactivateMouseEvents();
+		// });
+		//
+		// nodeEnterTooltip.append("text")
+		// .attr('id', function(d) { return 'nodeInfoTextID' + d.id; })
+    // 	.attr('x', rectNode.width / 2 + tooltip.textMargin)
+		// .attr('y', rectNode.height / 2 + tooltip.textMargin * 2)
+		// .attr('width', tooltip.width)
+		// .attr('height', tooltip.height)
+		// .attr('class', 'tooltip-text')
+		// .style('fill', 'white')
+		// .append("tspan")
+	  //   .text(function(d) {return 'Name: ' + d.name;})
+	  //   .append("tspan")
+	  //   .attr('x', rectNode.width / 2 + tooltip.textMargin)
+	  //   .attr('dy', '1.5em')
+	  //   .text(function(d) {return 'Info: ' + d.label;});
 
 		// Transition nodes to their new position.
 		var nodeUpdate = node.transition().duration(duration)
