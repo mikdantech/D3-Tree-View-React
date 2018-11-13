@@ -35,8 +35,8 @@ class App extends Component {
   render() {
 
     return (
-      <div>
-        <ct-visualization id="tree-container" />
+      <div id="tree-container">
+        
       </div>
     );
   }

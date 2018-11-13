@@ -16,13 +16,13 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 	var margin = {
 					top : 0,
 					right : 0,
-					bottom : 100,
+					bottom : 0,
 					left : 0
 				 },
 		// Height and width are redefined later in function of the size of the tree
 		// (after that the data are loaded)
-		width = 800 - margin.right - margin.left,
-		height = 400 - margin.top - margin.bottom;
+		width = 900 - margin.right - margin.left,
+		height = 500 - margin.top - margin.bottom;
 
 	var rectNode = { width : 120, height : 45, textMargin : 5 },
 		tooltip = { width : 150, height : 40, textMargin : 5 };
