@@ -1,19 +1,19 @@
 const $ = require("jquery");
 const d3 = require("d3");
-var TreeBoxes = {};
+let TreeBoxes = {};
 TreeBoxes.treeBoxes = function(urlService, jsonData)
 {
   // eslint-disable-next-line
-	var urlService_ = '';
+	let urlService_ = '';
 
-	var blue = '#337ab7',
+	let blue = '#337ab7',
 		green = '#5cb85c',
 		yellow = '#f0ad4e',
     // eslint-disable-next-line
 		blueText = '#4ab1eb',
 		purple = '#9467bd';
 
-	var margin = {
+	let margin = {
 					top : 0,
 					right : 0,
 					bottom : 0,
@@ -24,21 +24,21 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		width = 900 - margin.right - margin.left,
 		height = 500 - margin.top - margin.bottom;
 
-	var rectNode = { width : 120, height : 45, textMargin : 5 },
+	let rectNode = { width : 120, height : 55, textMargin : 5 },
 		tooltip = { width : 150, height : 40, textMargin : 5 };
-	var i = 0,
+	let i = 0,
 		duration = 750,
 		root;
 
-	var mousedown; // Use to save temporarily 'mousedown.zoom' value
+	let mousedown; // Use to save temporarily 'mousedown.zoom' value
   // eslint-disable-next-line
-	var mouseWheel,
+	let mouseWheel,
 		mouseWheelName,
     // eslint-disable-next-line
 		isKeydownZoom = false;
 
-	var tree;
-	var baseSvg,
+	let tree;
+	let baseSvg,
 		svgGroup,
 		nodeGroup, // If nodes are not grouped together, after a click the svg node will be set after his corresponding tooltip and will hide it
 		nodeGroupTooltip,
@@ -75,8 +75,8 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		// Dynamically set the height of the main svg container
 		// breadthFirstTraversal returns the max number of node on a same level
 		// and colors the nodes
-		var maxDepth = 0;
-		var maxTreeWidth = breadthFirstTraversal(tree.nodes(root), function(currentLevel) {
+		let maxDepth = 0;
+		let maxTreeWidth = breadthFirstTraversal(tree.nodes(root), function(currentLevel) {
 			maxDepth++;
 			currentLevel.forEach(function(node) {
 				if (node.type === 'type1')
@@ -137,7 +137,7 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 	function update(source)
 	{
 		// Compute the new tree layout
-		var nodes = tree.nodes(root).reverse(),
+		let nodes = tree.nodes(root).reverse(),
 			links = tree.links(nodes);
 
 		// Check if two nodes are in collision on the ordinates axe and move them
@@ -148,10 +148,10 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		});
 
 	// 1) ******************* Update the nodes *******************
-		var node = nodeGroup.selectAll('g.node').data(nodes, function(d) {
+		let node = nodeGroup.selectAll('g.node').data(nodes, function(d) {
 			return d.id || (d.id = ++i);
 		});
-		var nodesTooltip = nodeGroupTooltip.selectAll('g').data(nodes, function(d) {
+		let nodesTooltip = nodeGroupTooltip.selectAll('g').data(nodes, function(d) {
 			return d.id || (d.id = ++i);
 		});
 
@@ -160,14 +160,14 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		// it is added at the top of the group, so it is drawed first
 		// else the nodes tooltips are drawed before their children nodes and they
 		// hide them
-		var nodeEnter = node.enter().insert('g', 'g.node')
+		let nodeEnter = node.enter().insert('g', 'g.node')
 		.attr('class', 'node')
 		.attr('transform', function(d) {
 			  return 'translate(' + source.y0 + ',' + source.x0 + ')'; })
 		.on('click', function(d) {
 						click(d);
 			});
-		var nodeEnterTooltip = nodesTooltip.enter().append('g')
+		let nodeEnterTooltip = nodesTooltip.enter().append('g')
 			.attr('transform', function(d) {
 				  return 'translate(' + source.y0 + ',' + source.x0 + ')'; });
 
@@ -191,13 +191,12 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 					return (rectNode.height - rectNode.textMargin * 2) < 0 ? 0
 							: (rectNode.height - rectNode.textMargin * 2)
 				})
-		.append('xhtml').html(function(d) {
-					return '<div style="width: '
-							+ (rectNode.width - rectNode.textMargin * 2) + 'px; height: '
-							+ (rectNode.height - rectNode.textMargin * 2) + 'px;" class="node-text wordwrap">'
-							+ '<b>' + d.nodeName + '</b><br><br>'
-							+ '<b>Code: </b>' + d.code + '<br>'
-							+ '<b>Version: </b>' + d.version + '<br>'
+		.append('xhtml').html(function(data) {
+			let childCount = (data.childCount === "0")? "" : data.childCount;
+					return '<div style="width: ' + (rectNode.width - rectNode.textMargin * 2) + 'px;' +
+							 'height: ' + (rectNode.height - rectNode.textMargin * 2) + 'px;" class="node-text wordwrap">'
+							+ '<h6>' + data.nodeName + '</h6>'
+							+ '<h5 style="text-align: right;">' + childCount + '</h5>'
 							+ '</div>';
 				})
 		.on('mouseover', function(d) {
@@ -209,42 +208,10 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 			$('#nodeInfoTextID' + d.id).css('visibility', 'hidden');
 		});
 
-		// nodeEnterTooltip.append("rect")
-		// .attr('id', function(d) { return 'nodeInfoID' + d.id; })
-    // 	.attr('x', rectNode.width / 2)
-		// .attr('y', rectNode.height / 2)
-		// .attr('width', tooltip.width)
-		// .attr('height', tooltip.height)
-    // 	.attr('class', 'tooltip-box')
-    // 	.style('fill-opacity', 0.8)
-		// .on('mouseover', function(d) {
-		// 	$('#nodeInfoID' + d.id).css('visibility', 'visible');
-		// 	$('#nodeInfoTextID' + d.id).css('visibility', 'visible');
-		// 	removeMouseEvents();
-		// })
-		// .on('mouseout', function(d) {
-		// 	$('#nodeInfoID' + d.id).css('visibility', 'hidden');
-		// 	$('#nodeInfoTextID' + d.id).css('visibility', 'hidden');
-		// 	reactivateMouseEvents();
-		// });
-		//
-		// nodeEnterTooltip.append("text")
-		// .attr('id', function(d) { return 'nodeInfoTextID' + d.id; })
-    // 	.attr('x', rectNode.width / 2 + tooltip.textMargin)
-		// .attr('y', rectNode.height / 2 + tooltip.textMargin * 2)
-		// .attr('width', tooltip.width)
-		// .attr('height', tooltip.height)
-		// .attr('class', 'tooltip-text')
-		// .style('fill', 'white')
-		// .append("tspan")
-	  //   .text(function(d) {return 'Name: ' + d.name;})
-	  //   .append("tspan")
-	  //   .attr('x', rectNode.width / 2 + tooltip.textMargin)
-	  //   .attr('dy', '1.5em')
-	  //   .text(function(d) {return 'Info: ' + d.label;});
+		// TODO: tooltip removed
 
 		// Transition nodes to their new position.
-		var nodeUpdate = node.transition().duration(duration)
+		let nodeUpdate = node.transition().duration(duration)
 		.attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')'; });
 		nodesTooltip.transition().duration(duration)
 		.attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')'; });
@@ -255,7 +222,7 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		nodeUpdate.select('text').style('fill-opacity', 1);
 
 		// Transition exiting nodes to the parent's new position
-		var nodeExit = node.exit().transition().duration(duration)
+		let nodeExit = node.exit().transition().duration(duration)
 			.attr('transform', function(d) { return 'translate(' + source.y + ',' + source.x + ')'; })
 			.remove();
 		nodesTooltip.exit().transition().duration(duration)
@@ -266,12 +233,10 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 
 
 	// 2) ******************* Update the links *******************
-		var link = linkGroup.selectAll('path').data(links, function(d) {
+		let link = linkGroup.selectAll('path').data(links, function(d) {
 			return d.target.id;
 		});
-		var linkTooltip = linkGroupToolTip.selectAll('g').data(links, function(d) {
-			return d.target.id;
-		});
+
 
 		function linkMarkerStart(direction, isSelected) {
 			if (direction === 'SYNC')
@@ -301,7 +266,7 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		  // Enter any new links at the parent's previous position.
 			// Enter any new links at the parent's previous position.
       // eslint-disable-next-line
-			var linkenter = link.enter().insert('path', 'g')
+			let linkenter = link.enter().insert('path', 'g')
 			.attr('class', 'link')
 			.attr('id', function(d) { return 'linkID' + d.target.id; })
 			.attr('d', function(d) { return diagonal(d); })
@@ -327,62 +292,14 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 				$('#tooltipLinkTextID' + d.target.id).css('visibility', 'hidden');
 			});
 
-			linkTooltip.enter().append('rect')
-			.attr('id', function(d) { return 'tooltipLinkID' + d.target.id; })
-			.attr('class', 'tooltip-box')
-			.style('fill-opacity', 0.8)
-			.attr('x', function(d) { return (d.target.y + rectNode.width - d.source.y) / 2 + d.source.y; })
-			.attr('y', function(d) { return (d.target.x - d.source.x) / 2 + d.source.x; })
-			.attr('width', tooltip.width)
-			.attr('height', tooltip.height)
-			.on('mouseover', function(d) {
-				$('#tooltipLinkID' + d.target.id).css('visibility', 'visible');
-				$('#tooltipLinkTextID' + d.target.id).css('visibility', 'visible');
-				// After selected a link, the cursor can be hover the tooltip, that's why we still need to highlight the link and the arrow
-				$('#linkID' + d.target.id).attr('class', 'linkselected');
-				$('#linkID' + d.target.id).attr('marker-end', 'url(#end-arrow-selected)');
-				$('#linkID' + d.target.id).attr('marker-start', linkMarkerStart(d.target.link.direction, true));
-
-				removeMouseEvents();
-			})
-			.on('mouseout', function(d) {
-				$('#tooltipLinkID' + d.target.id).css('visibility', 'hidden');
-				$('#tooltipLinkTextID' + d.target.id).css('visibility', 'hidden');
-				$('#linkID' + d.target.id).attr('class', 'link');
-				$('#linkID' + d.target.id).attr('marker-end', 'url(#end-arrow)');
-				$('#linkID' + d.target.id).attr('marker-start', linkMarkerStart(d.target.link.direction, false));
-
-				reactivateMouseEvents();
-			});
-
-			linkTooltip.enter().append('text')
-			.attr('id', function(d) { return 'tooltipLinkTextID' + d.target.id; })
-			.attr('class', 'tooltip-text')
-			.attr('x', function(d) { return (d.target.y + rectNode.width - d.source.y) / 2 + d.source.y + tooltip.textMargin; })
-			.attr('y', function(d) { return (d.target.x - d.source.x) / 2 + d.source.x + tooltip.textMargin * 2; })
-			.attr('width', tooltip.width)
-			.attr('height', tooltip.height)
-			.style('fill', 'white')
-			.append("tspan")
-	   		.text(function(d) { return linkType(d.target.link); })
-	   		.append("tspan")
-	    	.attr('x', function(d) { return (d.target.y + rectNode.width - d.source.y) / 2 + d.source.y + tooltip.textMargin; })
-	   		.attr('dy', '1.5em')
-	    	.text(function(d) {return d.target.link.name;});
-
 		// Transition links to their new position.
     // eslint-disable-next-line
-		var linkUpdate = link.transition().duration(duration)
+		let linkUpdate = link.transition().duration(duration)
 						 	 .attr('d', function(d) { return diagonal(d); });
-		linkTooltip.transition().duration(duration)
-				   .attr('d', function(d) { return diagonal(d); });
 
 		// Transition exiting nodes to the parent's new position.
 		link.exit().transition()
 		.remove();
-
-		linkTooltip.exit().transition()
-			.remove();
 
 		// Stash the old positions for transition.
 		nodes.forEach(function(d) {
@@ -393,8 +310,8 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 
 	// Zoom functionnality is desactivated (user can use browser Ctrl + mouse wheel shortcut)
 	function zoomAndDrag() {
-	    //var scale = d3.event.scale,
-	    var scale = 1,
+	    //let scale = d3.event.scale,
+	    let scale = 1,
 	        translation = d3.event.translate,
 	        tbound = -height * scale,
 	        bbound = height * scale,
@@ -427,16 +344,16 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 	// return the max level
 	  function breadthFirstTraversal(tree, func)
 	  {
-		  var max = 0;
+		  let max = 0;
 		  if (tree && tree.length > 0)
 		  {
-			  var currentDepth = tree[0].depth;
-			  var fifo = [];
-			  var currentLevel = [];
+			  let currentDepth = tree[0].depth;
+			  let fifo = [];
+			  let currentLevel = [];
 
 			  fifo.push(tree[0]);
 			  while (fifo.length > 0) {
-				  var node = fifo.shift();
+				  let node = fifo.shift();
 				  if (node.depth > currentDepth) {
 					  func(currentLevel);
 					  currentDepth++;
@@ -445,7 +362,7 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 				  }
 				  currentLevel.push(node);
 				  if (node.children) {
-					  for (var j = 0; j < node.children.length; j++) {
+					  for (let j = 0; j < node.children.length; j++) {
 						  fifo.push(node.children[j]);
 					  }
 				  }
@@ -458,9 +375,9 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 
 	// x = ordoninates and y = abscissas
 	function collision(siblings) {
-	  var minPadding = 5;
+	  let minPadding = 5;
 	  if (siblings) {
-		  for (var i = 0; i < siblings.length - 1; i++)
+		  for (let i = 0; i < siblings.length - 1; i++)
 		  {
 			  if (siblings[i + 1].x - (siblings[i].x + rectNode.height) < minPadding)
 				  siblings[i + 1].x = siblings[i].x + rectNode.height + minPadding;
@@ -499,7 +416,7 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 	}
 
 	function diagonal(d) {
-		var p0 = {
+		let p0 = {
 			x : d.source.x + rectNode.height / 2,
 			y : (d.source.y + rectNode.width)
 		}, p3 = {
@@ -519,7 +436,7 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 	}
 
 	function initDropShadow() {
-		var filter = defs.append("filter")
+		let filter = defs.append("filter")
 		    .attr("id", "drop-shadow")
 		    .attr("color-interpolation-filters", "sRGB");
 

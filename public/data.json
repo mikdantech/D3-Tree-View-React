@@ -1,0 +1,118 @@
+{
+   "nodeName":"All Clients",
+   "type":"type3",
+   "childCount":"2",
+   "link":{
+      "direction":"SYNC"
+   },
+   "children":[
+      {
+         "nodeName":"Affinitiv",
+         "type":"type1",
+         "childCount":"1",
+         "link":{
+            "direction":"SYNC"
+         },
+         "children":[
+            {
+               "nodeName":"Affinitiv - High Gear",
+               "type":"type2",
+               "childCount":"0",
+               "link":{
+                  "direction":"SYNC"
+               },
+               "children":[
+
+               ]
+            }
+         ]
+      },
+      {
+         "nodeName":"Amazon",
+         "type":"type1",
+         "childCount":"1",
+         "link":{
+            "direction":"SYNC"
+         },
+         "children":[
+					 {
+					 	 "nodeName":"AMZ - Block Time",
+					 	 "type":"type2",
+					 	 "childCount":"0",
+					 	 "link":{
+					 			"direction":"SYNC"
+					 	 },
+						 "children":[
+
+						 ]
+					 }
+         ]
+      },
+      {
+         "nodeName":"Bench",
+         "type":"type1",
+         "childCount":"5",
+         "link":{
+            "direction":"SYNC"
+         },
+         "children":[
+            {
+               "nodeName":"Bench - Others",
+               "type":"type2",
+               "childCount":"0",
+               "link":{
+                  "direction":"SYNC"
+               },
+               "children":[
+
+               ]
+            },
+            {
+               "nodeName":"Capability",
+               "type":"type2",
+               "childCount":"0",
+               "link":{
+                  "direction":"SYNC"
+               },
+               "children":[
+
+               ]
+            },
+            {
+               "nodeName":"Parked - Coveris",
+               "type":"type2",
+               "childCount":"0",
+               "link":{
+                  "direction":"SYNC"
+               },
+               "children":[
+
+               ]
+            },
+            {
+               "nodeName":"Parked - LM Legal Sites/AIMS",
+               "type":"type2",
+               "childCount":"0",
+               "link":{
+                  "direction":"SYNC"
+               },
+               "children":[
+
+               ]
+            },
+            {
+               "nodeName":"Project - Intern",
+               "type":"type2",
+               "childCount":"0",
+               "link":{
+                  "direction":"SYNC"
+               },
+               "children":[
+
+               ]
+            }
+
+         ]
+      }
+   ]
+}

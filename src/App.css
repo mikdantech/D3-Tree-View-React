@@ -1,56 +1,56 @@
 #tree-container {
 	position: absolute;
-	width: 90%;
-	margin: 10px;
 	cursor: grab;
 	cursor: -webkit-grab;
+	width: 100%;
+	border: 1px solid black;
 }
 
-.svgContainer {
-	display: block;
-    margin: auto;
+#tree-container .svgContainer {
+	width: 100%;
+	padding: 5px;
 }
 
-.node {
+#tree-container .node {
 	cursor: pointer;
 }
 
-.node-rect {
+#tree-container .node-rect {
 }
 
-.node-rect-closed {
+#tree-container .node-rect-closed {
 	stroke-width: 2px;
 	stroke: rgb(0,0,0);
 }
 
-.link {
+#tree-container .link {
 	fill: none;
 	stroke: lightsteelblue;
 	stroke-width: 2px;
 }
 
-.linkselected {
+#tree-container .linkselected {
 	fill: none;
 	stroke: tomato;
 	stroke-width: 2px;
 }
 
-.arrow {
+#tree-container .arrow {
 	fill: lightsteelblue;
 	stroke-width: 1px;
 }
 
-.arrowselected {
+#tree-container .arrowselected {
 	fill: tomato;
 	stroke-width: 2px;
 }
 
-.link text {
+#tree-container .link text {
 	font: 7px sans-serif;
 	fill: #CC0000;
 }
 
-.wordwrap {
+#tree-container .wordwrap {
 	white-space: pre-wrap; /* CSS3 */
 	white-space: -moz-pre-wrap; /* Firefox */
 	white-space: -pre-wrap; /* Opera <7 */
@@ -58,17 +58,17 @@
 	word-wrap: break-word; /* IE */
 }
 
-.node-text {
+#tree-container .node-text {
 	font: 7px sans-serif;
 	color: white;
 }
 
-.tooltip-text-container {
-    height: 100%;
+#tree-container .tooltip-text-container {
+  height: 100%;
 	width: 100%;
 }
 
-.tooltip-text {
+#tree-container .tooltip-text {
 	visibility: hidden;
 	font: 7px sans-serif;
 	color: white;
@@ -76,7 +76,7 @@
  	padding: 5px;
 }
 
-.tooltip-box {
+#tree-container .tooltip-box {
 	background: rgba(0, 0, 0, 0.7);
 	visibility: hidden;
 	position: absolute;
@@ -86,14 +86,14 @@
     border-top-right-radius: 0.5em;
 }
 
-p {
+#tree-container p {
 	display: inline;
 }
 
-.textcolored {
+#tree-container .textcolored {
 	color: orange;
 }
 
-a.exchangeName {
+#tree-container a.exchangeName {
 	color: orange;
 }
