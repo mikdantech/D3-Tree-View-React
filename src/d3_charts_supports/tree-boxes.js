@@ -14,10 +14,10 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		purple = '#9467bd';
 
 	let margin = {
-					top : 0,
-					right : 0,
-					bottom : 0,
-					left : 0
+				top : 0,
+				right : 0,
+				bottom : 100,
+				left : 5
 				 },
 		// Height and width are redefined later in function of the size of the tree
 		// (after that the data are loaded)
@@ -79,13 +79,13 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		let maxTreeWidth = breadthFirstTraversal(tree.nodes(root), function(currentLevel) {
 			maxDepth++;
 			currentLevel.forEach(function(node) {
-				if (node.type === 'type1')
+				if (node.nodeColor === 'type1')
 					node.color = blue;
-				if (node.type === 'type2')
+				if (node.nodeColor === 'type2')
 					node.color = green;
-				if (node.type === 'type3')
+				if (node.nodeColor === 'type3')
 					node.color = yellow;
-				if (node.type === 'type4')
+				if (node.nodeColor === 'type4')
 					node.color = purple;
 				});
 			});
@@ -131,7 +131,36 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 		initArrowDef();
 		initDropShadow();
 
+		// collapse(root);
 		update(root);
+	}
+
+	function expand(d){
+	    var children = (d.children)?d.children:d._children;
+	    if (d._children) {
+	        d.children = d._children;
+	        d._children = null;
+	    }
+	    if(children)
+	      children.forEach(expand);
+	}
+
+	TreeBoxes.expandAll = function(){
+	    expand(root);
+	    update(root);
+	}
+
+	TreeBoxes.collapseAll = function(){
+		collapse(root);
+		update(root);
+	}
+
+	function collapse(d) {
+	  if (d.children) {
+	    d._children = d.children;
+	    d._children.forEach(collapse);
+	    d.children = null;
+	  }
 	}
 
 	function update(source)
@@ -237,7 +266,6 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 			return d.target.id;
 		});
 
-
 		function linkMarkerStart(direction, isSelected) {
 			if (direction === 'SYNC')
 			{
@@ -333,6 +361,9 @@ TreeBoxes.treeBoxes = function(urlService, jsonData)
 			d._children = d.children;
 			d.children = null;
 		} else {
+			if (d.type !== 'root') {
+				// alert('ok');
+			}
 			d.children = d._children;
 			d._children = null;
 		}

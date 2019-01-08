@@ -1,25 +1,28 @@
 {
    "nodeName":"All Clients",
-   "type":"type3",
+   "nodeColor":"type3",
    "childCount":"2",
+   "type": "root",
    "link":{
-      "direction":"SYNC"
+      "direction":"ASYN"
    },
    "children":[
       {
          "nodeName":"Affinitiv",
-         "type":"type1",
+         "nodeColor":"type1",
+         "type": "root",
          "childCount":"1",
          "link":{
-            "direction":"SYNC"
+            "direction":"ASYN"
          },
          "children":[
             {
                "nodeName":"Affinitiv - High Gear",
-               "type":"type2",
+               "nodeColor":"type2",
+               "type": "child",
                "childCount":"0",
                "link":{
-                  "direction":"SYNC"
+                  "direction":"ASYN"
                },
                "children":[
 
@@ -29,18 +32,20 @@
       },
       {
          "nodeName":"Amazon",
-         "type":"type1",
+         "nodeColor":"type1",
+         "type": "root",
          "childCount":"1",
          "link":{
-            "direction":"SYNC"
+            "direction":"ASYN"
          },
          "children":[
 					 {
 					 	 "nodeName":"AMZ - Block Time",
-					 	 "type":"type2",
+					 	 "nodeColor":"type2",
+             "type": "child",
 					 	 "childCount":"0",
 					 	 "link":{
-					 			"direction":"SYNC"
+					 			"direction":"ASYN"
 					 	 },
 						 "children":[
 
@@ -50,18 +55,20 @@
       },
       {
          "nodeName":"Bench",
-         "type":"type1",
+         "nodeColor":"type1",
+         "type": "root",
          "childCount":"5",
          "link":{
-            "direction":"SYNC"
+            "direction":"ASYN"
          },
          "children":[
             {
                "nodeName":"Bench - Others",
-               "type":"type2",
+               "nodeColor":"type2",
+               "type": "child",
                "childCount":"0",
                "link":{
-                  "direction":"SYNC"
+                  "direction":"ASYN"
                },
                "children":[
 
@@ -69,10 +76,11 @@
             },
             {
                "nodeName":"Capability",
-               "type":"type2",
+               "nodeColor":"type2",
+               "type": "child",
                "childCount":"0",
                "link":{
-                  "direction":"SYNC"
+                  "direction":"ASYN"
                },
                "children":[
 
@@ -80,10 +88,11 @@
             },
             {
                "nodeName":"Parked - Coveris",
-               "type":"type2",
+               "nodeColor":"type2",
+               "type": "child",
                "childCount":"0",
                "link":{
-                  "direction":"SYNC"
+                  "direction":"ASYN"
                },
                "children":[
 
@@ -91,10 +100,11 @@
             },
             {
                "nodeName":"Parked - LM Legal Sites/AIMS",
-               "type":"type2",
+               "nodeColor":"type2",
+               "type": "child",
                "childCount":"0",
                "link":{
-                  "direction":"SYNC"
+                  "direction":"ASYN"
                },
                "children":[
 
@@ -102,10 +112,11 @@
             },
             {
                "nodeName":"Project - Intern",
-               "type":"type2",
+               "nodeColor":"type2",
+               "type": "child",
                "childCount":"0",
                "link":{
-                  "direction":"SYNC"
+                  "direction":"ASYN"
                },
                "children":[
 

@@ -19,7 +19,12 @@ class App extends Component {
     }
 
     return (
-      <div id="tree-container" ref="treeContainer" />
+      <React.Fragment>
+        <button onClick={e => TreeBoxes.expandAll()}>expand All</button><br />
+        <button onClick={e => TreeBoxes.collapseAll()}>collapse All</button><br />
+        <div id="tree-container" ref="treeContainer" />
+      </React.Fragment>
+
     );
   }
 }
